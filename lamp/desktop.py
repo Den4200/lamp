@@ -20,7 +20,7 @@ class Desktop(arcade.View):
             color=(0, 0, 0, 120)
         )
         # here for testing purposes
-        self.test_window = Window(self)
+        self.test_window = Window(self, 'Test Window')
 
     def on_draw(self) -> None:
         super().on_draw()
