@@ -9,7 +9,7 @@ class SimpleSpriteList:
 
     def update(self) -> None:
         for sprite in self.sprites:
-            sprite.draw()
+            sprite.update()
 
     def append(self, sprite) -> None:
         self.sprites.append(sprite)
