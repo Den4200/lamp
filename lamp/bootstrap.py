@@ -13,11 +13,14 @@ class BootStrap(arcade.View):
 
         self.logo = arcade.draw_text(
             config['sysinfo']['os'],
-            int(config['window']['x']) / 2 - 64,
-            int(config['window']['y']) / 2 - 16,
+            int(config['window']['x']) / 2,
+            int(config['window']['y']) / 2,
             color=arcade.color.WHITE,
             font_size=32,
-            bold=True
+            bold=True,
+            align='center',
+            anchor_x='center',
+            anchor_y='center'
         )
         self.start_time = time.time()
 
