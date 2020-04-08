@@ -27,7 +27,7 @@ class BootStrap(arcade.View):
         super().on_draw()
         self.logo.draw()
 
-    def on_update(self, delta) -> None:
+    def on_update(self, delta_time) -> None:
         # simulate a 2 second boot up time
         if time.time() - self.start_time >= 2:
             self.window.show_view(Desktop())
