@@ -4,7 +4,7 @@ from lamp import config
 from lamp.bootstrap import BootStrap
 
 
-def main():
+def main() -> None:
     window = arcade.Window(
         int(config['window']['x']),
         int(config['window']['y']),
