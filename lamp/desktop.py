@@ -1,6 +1,7 @@
 import arcade
 
 from lamp import config
+from lamp.taskbar import TaskBar
 from lamp.window import Window
 from lamp.utils import SimpleSpriteList
 
@@ -15,13 +16,7 @@ class Desktop(arcade.View):
         self.background = arcade.load_texture(
             f"sys/{config['desktop']['background']}"
         )
-        self.taskbar = arcade.create_rectangle_filled(
-            center_x=int(config['window']['x']) / 2,
-            center_y=int(config['window']['y']) - (int(config['window']['y']) - 24),
-            width=int(config['window']['x']),
-            height=48,
-            color=(0, 0, 0, 120)
-        )
+        self.taskbar = TaskBar()
         # here for testing purposes
         self.test_window = Window(self, 'Test Window')
         self.windows.append(self.test_window)
@@ -41,3 +36,4 @@ class Desktop(arcade.View):
 
     def on_update(self, delta_time) -> None:
         self.windows.update()
+        self.taskbar.update()
