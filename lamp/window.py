@@ -54,9 +54,7 @@ class Window:
 
     def close(self) -> None:
         self.desktop.button_list.remove(self.close_button)
-        # self.close_button.active = False
-        self.top_bar_name.kill()
-        # self.top_bar
+        self.ui.clear()
 
     def draw(self) -> None:
         self.ui.draw()

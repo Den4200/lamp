@@ -19,3 +19,6 @@ class SimpleSpriteList:
 
     def pop(self, index: int = -1):
         self.sprites.pop(index)
+
+    def clear(self) -> None:
+        self.sprites.clear()
