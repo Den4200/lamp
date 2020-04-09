@@ -46,6 +46,9 @@ class Window:
         self.desktop = desktop
         self.name = name
 
+        self.center_x = int(config['window']['x']) / 2
+        self.center_y = (int(config['window']['y']) - (48 + 32)) / 2 + 48
+
         self.ui = SimpleSpriteList()
 
         self.top_bar = arcade.create_rectangle_filled(
@@ -89,10 +92,19 @@ class Window:
 
             setattr(self, name, button)
 
+        self.screen_background = arcade.create_rectangle_filled(
+            center_x=self.center_x,
+            center_y=self.center_y,
+            width=int(config['window']['x']),
+            height=int(config['window']['y']) - (48 + 32),
+            color=(60, 60, 60, 255)
+        )
+        self.ui.append(self.screen_background)
+
     def close(self) -> None:
         self.ui.clear()
         self.desktop.button_list.remove(self.close_button)
-        self.window.windows.remove(self)
+        self.desktop.windows.remove(self)
 
     def fill_screen(self) -> None:
         pass
