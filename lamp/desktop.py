@@ -2,12 +2,15 @@ import arcade
 
 from lamp import config
 from lamp.window import Window
+from lamp.utils import SimpleSpriteList
 
 
 class Desktop(arcade.View):
 
     def __init__(self) -> None:
         super().__init__()
+
+        self.windows = SimpleSpriteList()
 
         self.background = arcade.load_texture(
             f"sys/{config['desktop']['background']}"
@@ -21,6 +24,7 @@ class Desktop(arcade.View):
         )
         # here for testing purposes
         self.test_window = Window(self, 'Test Window')
+        self.windows.append(self.test_window)
 
     def on_draw(self) -> None:
         super().on_draw()
@@ -33,7 +37,7 @@ class Desktop(arcade.View):
             texture=self.background
         )
         self.taskbar.draw()
-        self.test_window.draw()
+        self.windows.draw()
 
     def on_update(self, delta_time) -> None:
-        self.test_window.update()
+        self.windows.update()
