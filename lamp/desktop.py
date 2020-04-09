@@ -16,10 +16,11 @@ class Desktop(arcade.View):
         self.background = arcade.load_texture(
             f"sys/{config['desktop']['background']}"
         )
-        self.taskbar = TaskBar()
+        self.taskbar = TaskBar(self)
         # here for testing purposes
         self.test_window = Window(self, 'Test Window')
         self.windows.append(self.test_window)
+        self.taskbar.append('Test Window', self.test_window)
 
     def on_draw(self) -> None:
         super().on_draw()
