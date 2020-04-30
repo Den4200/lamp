@@ -1,5 +1,3 @@
-import time
-
 import arcade
 
 from lamp import config
@@ -22,7 +20,7 @@ class BootStrap(arcade.View):
             anchor_x='center',
             anchor_y='center'
         )
-        self.start_time = time.time()
+        self._delta_time = 0
 
     def on_draw(self) -> None:
         arcade.start_render()
@@ -31,6 +29,8 @@ class BootStrap(arcade.View):
         self.logo.draw()
 
     def on_update(self, delta_time) -> None:
-        # simulate a 2 second boot up time
-        if time.time() - self.start_time >= 2:
+        self._delta_time += delta_time
+
+        # simulate a 1 second boot up time
+        if self._delta_time >= 1:
             self.window.show_view(Desktop())

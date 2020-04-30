@@ -3,15 +3,15 @@ from datetime import datetime
 import arcade
 
 from lamp import config
-from lamp.utils import SimpleSpriteList
 
 
-class TaskBar(SimpleSpriteList):
+class TaskBar:
 
     def __init__(self, desktop) -> None:
-        super().__init__()
         self.desktop = desktop
         self.window_icons = dict()
+
+        self.widgets = list()
 
         self.center_x = int(config['window']['x']) / 2
         self.center_y = int(config['window']['y']) - (int(config['window']['y']) - 24)
@@ -35,17 +35,18 @@ class TaskBar(SimpleSpriteList):
             anchor_x='center',
             anchor_y='center'
         )
-        self.sprites.append(self.datetime)
+        self.widgets.append(self.datetime)
 
     def draw(self) -> None:
         self.bar.draw()
 
-        for name, icon in self.window_icons.items():
+        for widget in self.widgets:
+            widget.draw()
+
+        for icon in self.window_icons.values():
             icon.draw()
 
-        super().draw()
-
-    def append(self, name, sprite) -> None:
+    def add_window_icon(self, name, sprite) -> None:
         self.window_icons[name] = arcade.Sprite(
             'sys/lamp/default-window-icon.png',
             center_x=(len(self.window_icons) + 1) * 48 - 24,
@@ -53,9 +54,8 @@ class TaskBar(SimpleSpriteList):
             image_width=48,
             image_height=48
         )
-        super().append(sprite)
 
-    def update(self) -> None:
+    def on_update(self, delta_time) -> None:
         prev_datetime = datetime.strptime(self.datetime_text, r'%I:%M %p | %d/%m/%Y')
         now_datetime = datetime.strptime(
             datetime.strftime(datetime.now(), r'%I:%M %p | %d/%m/%Y'), r'%I:%M %p | %d/%m/%Y'
@@ -76,4 +76,8 @@ class TaskBar(SimpleSpriteList):
             )
             self.sprites.append(self.datetime)
 
-        super().update()
+        for widget in self.widgets:
+            widget.on_update(delta_time)
+
+        for icon in self.window_icons.values():
+            icon.on_update(delta_time)

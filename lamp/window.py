@@ -1,7 +1,6 @@
 import arcade
 
 from lamp import config
-from lamp.utils import SimpleSpriteList
 
 
 class CloseButton(arcade.gui.TextButton):
@@ -49,7 +48,7 @@ class Window:
         self.center_x = int(config['window']['x']) / 2
         self.center_y = (int(config['window']['y']) - (48 + 32)) / 2 + 48
 
-        self.ui = SimpleSpriteList()
+        self.ui = list()
 
         self.top_bar = arcade.create_rectangle_filled(
             center_x=int(config['window']['x']) / 2,
@@ -78,9 +77,7 @@ class Window:
             ('minimize_button', MinimizeButton)
         )
 
-        for idx, button in enumerate(buttons):
-            name, button = button
-
+        for idx, (name, button) in enumerate(buttons):
             button = button(
                 window=self,
                 center_x=int(config['window']['x']) + 24 - (idx + 1) * 48,
@@ -119,7 +116,9 @@ class Window:
         pass
 
     def draw(self) -> None:
-        self.ui.draw()
+        for element in self.ui:
+            element.draw()
 
-    def update(self) -> None:
-        pass
+    def on_update(self, delta_time) -> None:
+        for element in self.ui:
+            element.on_update(delta_time)
